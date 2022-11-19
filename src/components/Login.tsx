@@ -1,5 +1,7 @@
 import React from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
+import { API } from '../utils/API';
+import { validateEmail } from '../utils/validateEmail';
 
 enum FormLabel {
   Email = 'Email address',
@@ -11,7 +13,19 @@ const Login = () => {
   const [formValue, setFormValue] = React.useState({ email: '', password: '' });
 
   const handleLogin = async () => {
-    console.log('login');
+    if (!validateEmail(formValue.email)) {
+      alert('Please enter a valid email address');
+      return;
+    }
+    if (formValue.password.length < 4) {
+      alert('Password must be at least 4 characters');
+      return;
+    }
+    try {
+      await API.post('login', formValue);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

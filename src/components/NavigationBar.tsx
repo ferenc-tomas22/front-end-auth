@@ -5,7 +5,14 @@ enum NAV_LINK {
   HOME = 'Home',
   LOGIN = 'Login',
   REGISTER = 'Register',
+  LOGOUT = 'Logout',
 }
+
+const handleLogout = () => {
+  localStorage.removeItem('authToken');
+  window.location.href = '/login';
+  alert('You have been logged out');
+};
 
 const NavigationBar = () => {
   return (
@@ -36,6 +43,11 @@ const NavigationBar = () => {
           </Nav.Link>
           <Nav.Link to='/register' as={NavLink}>
             <Button className='btn btn-dark rounded-pill'>{NAV_LINK.REGISTER}</Button>
+          </Nav.Link>
+          <Nav.Link>
+            <Button onClick={handleLogout} className='btn btn-dark rounded-pill'>
+              {NAV_LINK.LOGOUT}
+            </Button>
           </Nav.Link>
         </Nav>
       </Container>

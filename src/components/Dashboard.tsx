@@ -2,15 +2,15 @@ import React from 'react';
 import { API } from '../utils/API';
 import { Container } from 'react-bootstrap';
 
-const Home = () => {
+const Dashboard = () => {
   const [title, setTitle] = React.useState('');
 
   React.useEffect(() => {
-    const getHomeTitle = async () => {
-      const response = await API.get('');
+    const getDashboardTitle = async () => {
+      const response = await API.get('/dashboard');
       setTitle(response);
     };
-    getHomeTitle();
+    getDashboardTitle();
   }, []);
 
   return (
@@ -20,4 +20,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Dashboard;

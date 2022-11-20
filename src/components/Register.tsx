@@ -1,7 +1,6 @@
 import React from 'react';
-import { Container, Form, Button } from 'react-bootstrap';
 import { API } from '../utils/API';
-import { validateEmail } from '../utils/validateEmail';
+import { Container, Form, Button } from 'react-bootstrap';
 
 enum FormLabel {
   Email = 'Email address',
@@ -12,20 +11,17 @@ enum FormLabel {
 const Register = () => {
   const [formValue, setFormValue] = React.useState({ email: '', password: '' });
 
-  const handleRegister = () => {
-    if (!validateEmail(formValue.email)) {
-      alert('Please enter a valid email address');
+  const handleRegister = async () => {
+    const response = await API.post('register', formValue);
+    if (response.error) {
+      for (const message of response.message) {
+        const msg = message as string;
+        alert(msg.charAt(0).toUpperCase() + msg.slice(1));
+      }
       return;
     }
-    if (formValue.password.length < 4) {
-      alert('Password must be at least 4 characters');
-      return;
-    }
-    try {
-      API.post('register', formValue);
-    } catch (err) {
-      console.error(err);
-    }
+    window.location.href = '/login';
+    alert('Registration successful');
   };
 
   return (

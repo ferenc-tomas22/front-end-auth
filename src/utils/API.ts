@@ -15,6 +15,7 @@ export class API {
   static async get(url: string, signal?: AbortSignal, authToken?: string) {
     try {
       const response = await axios.get(url, {
+        // withCredentials: true,
         ...(authToken && { headers: { Authorization: `Bearer ${authToken}` } }),
         ...(signal && { signal }),
       });

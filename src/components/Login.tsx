@@ -2,6 +2,8 @@ import React from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { API } from '../utils/API';
 
+import axios from 'axios';
+
 enum FormLabel {
   Email = 'Email address',
   Password = 'Password',
@@ -22,8 +24,7 @@ const Login = () => {
       return;
     }
 
-    if (response.authToken) {
-      localStorage.setItem('authToken', response.authToken);
+    if (response.userId) {
       window.location.href = '/dashboard';
       alert('Login successful');
     }

@@ -8,7 +8,11 @@ const Dashboard = () => {
   React.useEffect(() => {
     const getDashboardTitle = async () => {
       const response = await API.get('/dashboard');
-      setTitle(response);
+      if (response.title) {
+        setTitle(response.title);
+      } else if (response.message) {
+        alert(response.message);
+      }
     };
     getDashboardTitle();
   }, []);

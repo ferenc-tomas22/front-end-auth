@@ -1,5 +1,6 @@
 import { Nav, Navbar, Container, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
+import { API } from '../utils/API';
 
 enum NAV_LINK {
   HOME = 'Home',
@@ -8,10 +9,12 @@ enum NAV_LINK {
   LOGOUT = 'Logout',
 }
 
-const handleLogout = () => {
-  localStorage.removeItem('authToken');
-  window.location.href = '/login';
-  alert('You have been logged out');
+const handleLogout = async () => {
+  const response = await API.get('logout');
+  if (!response.error) {
+    alert('You have been logged out');
+    window.location.href = '/';
+  }
 };
 
 const NavigationBar = () => {

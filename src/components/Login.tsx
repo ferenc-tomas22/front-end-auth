@@ -2,8 +2,6 @@ import React from 'react';
 import { Container, Form, Button } from 'react-bootstrap';
 import { API } from '../utils/API';
 
-import axios from 'axios';
-
 enum FormLabel {
   Email = 'Email address',
   Password = 'Password',
@@ -23,11 +21,8 @@ const Login = () => {
       }
       return;
     }
-
-    if (response.userId) {
-      window.location.href = '/dashboard';
-      alert('Login successful');
-    }
+    window.location.href = '/dashboard';
+    alert('Login successful');
   };
 
   return (

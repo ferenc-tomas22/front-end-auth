@@ -34,6 +34,7 @@ export class API {
   ) {
     try {
       const response = await axios.post(url, data, {
+        withCredentials: true,
         ...(authToken && { headers: { Authorization: `Bearer ${authToken}` } }),
         ...(params && { params }),
         ...(signal && { signal }),

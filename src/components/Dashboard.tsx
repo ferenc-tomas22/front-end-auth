@@ -1,17 +1,24 @@
 import React from 'react';
+
 import { API } from '../utils/API';
+import { AxiosError } from 'axios';
+
 import { Container } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 const Dashboard = () => {
   const [title, setTitle] = React.useState('');
 
   React.useEffect(() => {
     const getDashboardTitle = async () => {
-      const response = await API.get('/dashboard');
-      if (response.title) {
-        setTitle(response.title);
-      } else if (response.message) {
-        alert(response.message);
+      const res = await API.get('/dashboard');
+      if (res instanceof AxiosError) {
+        toast.error(res.response?.data.message);
+        if (res.response?.status === 401) {
+          setTimeout(() => (window.location.href = '/login'), 3000);
+        }
+      } else if (res.title) {
+        setTitle(res.title);
       }
     };
     getDashboardTitle();

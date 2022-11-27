@@ -1,20 +1,33 @@
-import { Nav, Navbar, Container, Button } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
 import { API } from '../utils/API';
+import { AxiosError } from 'axios';
+
+import { NavLink } from 'react-router-dom';
+
+import { Nav, Navbar, Container, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 enum NAV_LINK {
   HOME = 'Home',
+  DASHBOARD = 'Dashboard',
   LOGIN = 'Login',
   REGISTER = 'Register',
   LOGOUT = 'Logout',
 }
 
 const handleLogout = async () => {
-  const response = await API.get('logout');
-  if (!response.error) {
-    alert('You have been logged out');
-    window.location.href = '/';
+  const res = await API.get('logout');
+  if (res instanceof AxiosError) {
+    const msg = res.response?.data.message;
+    if (Array.isArray(msg)) {
+      for (const m of msg) {
+        toast.error(m.charAt(0).toUpperCase() + m.slice(1));
+      }
+      return;
+    }
+    return toast.error(msg);
   }
+  toast.success('You have been successfully logged out');
+  setTimeout(() => (window.location.href = '/login'), 3000);
 };
 
 const NavigationBar = () => {
@@ -40,6 +53,9 @@ const NavigationBar = () => {
         <Nav>
           <Nav.Link to='/' as={NavLink}>
             <Button className='btn btn-dark rounded-pill'>{NAV_LINK.HOME}</Button>
+          </Nav.Link>
+          <Nav.Link to='/dashboard' as={NavLink}>
+            <Button className='btn btn-dark rounded-pill'>{NAV_LINK.DASHBOARD}</Button>
           </Nav.Link>
           <Nav.Link to='/login' as={NavLink}>
             <Button className='btn btn-dark rounded-pill'>{NAV_LINK.LOGIN}</Button>

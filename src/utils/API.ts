@@ -1,18 +1,18 @@
 import axios, { AxiosError } from 'axios';
 
 const baseURL = import.meta.env.VITE_BASE_URL;
-const authToken = localStorage.getItem('authToken');
+// const authToken = localStorage.getItem('authToken');
 
 if (baseURL) {
   axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
 }
 
-if (authToken) {
-  axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
-}
+// if (authToken) {
+//   axios.defaults.headers.common['Authorization'] = `Bearer ${authToken}`;
+// }
 
 export class API {
-  static async get(url: string, signal?: AbortSignal, authToken?: string) {
+  static async get(url: string, authToken?: string, signal?: AbortSignal) {
     try {
       const response = await axios.get(url, {
         withCredentials: true,
@@ -20,14 +20,13 @@ export class API {
         ...(signal && { signal }),
       });
       return response.data;
-    } catch (e) {
-      const err = e as AxiosError;
-      return err.response?.data;
+    } catch (err) {
+      return err as AxiosError;
     }
   }
   static async post(
     url: string,
-    data?: any,
+    data?: unknown,
     params?: object,
     authToken?: string,
     signal?: AbortSignal
@@ -40,9 +39,8 @@ export class API {
         ...(signal && { signal }),
       });
       return response.data;
-    } catch (e) {
-      const err = e as AxiosError;
-      return err.response?.data;
+    } catch (err) {
+      return err as AxiosError;
     }
   }
 }

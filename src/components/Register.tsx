@@ -1,6 +1,10 @@
 import React from 'react';
+
 import { API } from '../utils/API';
+import { AxiosError } from 'axios';
+
 import { Container, Form, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 enum FormLabel {
   Email = 'Email address',
@@ -12,20 +16,24 @@ const Register = () => {
   const [formValue, setFormValue] = React.useState({ email: '', password: '' });
 
   const handleRegister = async () => {
-    const response = await API.post('register', formValue);
-    if (response.error) {
-      for (const message of response.message) {
-        const msg = message as string;
-        alert(msg.charAt(0).toUpperCase() + msg.slice(1));
+    const res = await API.post('register', formValue);
+    if (res instanceof AxiosError) {
+      const msg = res.response?.data.message;
+      if (Array.isArray(msg)) {
+        for (const m of msg) {
+          toast.error(m.charAt(0).toUpperCase() + m.slice(1));
+        }
+        return;
       }
-      return;
+      return toast.error(msg);
     }
-    window.location.href = '/login';
-    alert('Registration successful');
+    toast.success('Registration successful');
+    setTimeout(() => (window.location.href = '/login'), 3000);
   };
 
   return (
     <Container className='mt-5 w-25'>
+      <h5 className='text-center'>Register</h5>
       <Form className='border border-dark rounded p-5'>
         <Form.Group className='mb-3'>
           <Form.Label>{FormLabel.Email}</Form.Label>

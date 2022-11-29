@@ -14,12 +14,12 @@ if (baseURL) {
 export class API {
   static async get(url: string, authToken?: string, signal?: AbortSignal) {
     try {
-      const response = await axios.get(url, {
+      const { data } = await axios.get(url, {
         withCredentials: true,
         ...(authToken && { headers: { Authorization: `Bearer ${authToken}` } }),
         ...(signal && { signal }),
       });
-      return response.data;
+      return data;
     } catch (err) {
       return err as AxiosError;
     }
@@ -32,13 +32,13 @@ export class API {
     signal?: AbortSignal
   ) {
     try {
-      const response = await axios.post(url, data, {
+      const { data: res_data } = await axios.post(url, data, {
         withCredentials: true,
         ...(authToken && { headers: { Authorization: `Bearer ${authToken}` } }),
         ...(params && { params }),
         ...(signal && { signal }),
       });
-      return response.data;
+      return res_data;
     } catch (err) {
       return err as AxiosError;
     }

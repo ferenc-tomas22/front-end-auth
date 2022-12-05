@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { API } from '../utils/API';
+import { API } from '../utils';
 import { AxiosError } from 'axios';
 
 import { Container, Form, Button } from 'react-bootstrap';
@@ -12,7 +12,7 @@ enum FormLabel {
   Login = 'Log In',
 }
 
-const Login = () => {
+export const Login = () => {
   const [formValue, setFormValue] = React.useState({ email: '', password: '' });
 
   const handleLogin = async () => {
@@ -63,5 +63,3 @@ const Login = () => {
     </Container>
   );
 };
-
-export default Login;

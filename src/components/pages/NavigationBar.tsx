@@ -1,4 +1,4 @@
-import { API } from '../utils/API';
+import { API } from '../utils';
 import { AxiosError } from 'axios';
 
 import { NavLink } from 'react-router-dom';
@@ -30,7 +30,7 @@ const handleLogout = async () => {
   setTimeout(() => (window.location.href = '/login'), 3000);
 };
 
-const NavigationBar = () => {
+export const NavigationBar = () => {
   return (
     <Navbar bg='dark' variant='dark' sticky='top' className='shadow-lg p-0'>
       <Container className='mx-5'>
@@ -73,5 +73,3 @@ const NavigationBar = () => {
     </Navbar>
   );
 };
-
-export default NavigationBar;

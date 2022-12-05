@@ -6,7 +6,7 @@ import { AxiosError } from 'axios';
 import { Container } from 'react-bootstrap';
 import { toast } from 'react-toastify';
 
-const Dashboard = () => {
+export const Dashboard = () => {
   const [title, setTitle] = React.useState('');
 
   React.useEffect(() => {
@@ -30,5 +30,3 @@ const Dashboard = () => {
     </Container>
   );
 };
-
-export default Dashboard;

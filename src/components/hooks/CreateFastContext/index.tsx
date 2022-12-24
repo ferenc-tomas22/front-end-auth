@@ -42,15 +42,12 @@ export function createFastContext<Store>(initialState: Store) {
   ): [SelectorOutput, (value: Partial<Store>) => void] {
     const store = React.useContext(StoreContext);
 
-    if (!store) throw new Error('Store not found');
+    if (!store) throw new Error('StoreContext not found');
 
     const state = React.useSyncExternalStore(store.subscribe, () => selector(store.get()));
 
     return [state, store.set];
   }
 
-  return {
-    Provider,
-    useStore,
-  };
+  return { Provider, useStore };
 }

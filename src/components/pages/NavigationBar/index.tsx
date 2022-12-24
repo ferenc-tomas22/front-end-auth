@@ -1,4 +1,4 @@
-import { API } from '../utils';
+import { API } from '../../utils/API';
 import { AxiosError } from 'axios';
 
 import { NavLink } from 'react-router-dom';
@@ -10,9 +10,14 @@ enum NAV_LINK {
   HOME = 'Home',
   DASHBOARD = 'Dashboard',
   LOGIN = 'Login',
+  LOGIN_WITH_GOOGLE = 'Login with Google',
   REGISTER = 'Register',
   LOGOUT = 'Logout',
 }
+
+const handleLoginWithGoogle = async () => {
+  console.log('handleLoginWithGoogle');
+};
 
 const handleLogout = async () => {
   const res = await API.get('logout');
@@ -59,6 +64,11 @@ export const NavigationBar = () => {
           </Nav.Link>
           <Nav.Link to='/login' as={NavLink}>
             <Button className='btn btn-dark rounded-pill'>{NAV_LINK.LOGIN}</Button>
+          </Nav.Link>
+          <Nav.Link>
+            <Button onClick={handleLoginWithGoogle} className='btn btn-dark rounded-pill'>
+              {NAV_LINK.LOGIN_WITH_GOOGLE}
+            </Button>
           </Nav.Link>
           <Nav.Link to='/register' as={NavLink}>
             <Button className='btn btn-dark rounded-pill'>{NAV_LINK.REGISTER}</Button>

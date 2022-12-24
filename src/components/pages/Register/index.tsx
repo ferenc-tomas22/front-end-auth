@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { API } from '../utils';
+import { API } from '../../utils/API';
 import { AxiosError } from 'axios';
 
 import { Container, Form, Button } from 'react-bootstrap';

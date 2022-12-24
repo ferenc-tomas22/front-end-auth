@@ -4,7 +4,9 @@ const baseURL = import.meta.env.VITE_BASE_URL;
 // const authToken = localStorage.getItem('authToken');
 
 if (baseURL) {
-  axios.defaults.baseURL = import.meta.env.VITE_BASE_URL;
+  axios.defaults.baseURL = baseURL;
+} else {
+  throw new Error('No base URL provided');
 }
 
 // if (authToken) {

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { API } from '../utils/API';
+import { API } from '../../utils/API';
 import { AxiosError } from 'axios';
 
 import { Container } from 'react-bootstrap';
